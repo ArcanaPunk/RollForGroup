@@ -66,6 +66,67 @@
               transition: all .2s ease-in-out;
     }
 
+    .player-modal-content {
+      position: relative;
+      background-color: #fff;
+      -webkit-background-clip: padding-box;
+              background-clip: padding-box;
+      border: 1px solid #999;
+      border: 1px solid rgba(0, 0, 0, .2);
+      border-radius: 0px;
+      outline: 0;
+      -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+              box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    }
+
+    .panel-profile {
+      margin-bottom: 0px;
+      margin-top: 0px;
+      background-color: #fff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+
+    .panel-profile-body {
+      padding: 15px;
+    }
+    .panel-profile-heading {
+      padding: 10px 15px;
+      border-bottom: 1px solid transparent;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+
+        color: #000000;
+        background-color: #f1f1f1;
+        border-color: #000000;
+    }
+    .panel-profile-heading > .dropdown .dropdown-toggle {
+      color: inherit;
+    }
+    .panel-profile-title {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 16px;
+      color: inherit;
+    }
+    .panel-profile-title > a,
+    .panel-profile-title > small,
+    .panel-profile-title > .small,
+    .panel-profile-title > small > a,
+    .panel-profile-title > .small > a {
+      color: inherit;
+    }
+    .panel-profile-footer {
+      padding: 10px 15px;
+      text-align: right;
+      background-color: #f5f5f5;
+      border-top: 1px solid #ddd;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+    }
+
   </style>
 </head>
 <body>
@@ -123,8 +184,8 @@
       <table style="text-align: center;"">
         <tr>
           <td>
-            <a href="viewOtherGroup.html">
-              <img src="pictures/Female-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+            <a data-toggle="modal" href="#myModal">
+              <img src="pictures/Group-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
               <h4>Group 1</h4>
             </a>
           </td>
@@ -205,6 +266,90 @@
         </tr>
       </table>
 
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="player-modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Quick View</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="panel-profile">
+
+              <div class="panel-profile-heading">
+                  <h3 class="panel-profile-title">Group 1</h3>
+              </div>
+
+              <div class="panel-profile-body">
+
+                <div class="row">
+                  <div align="center"> 
+                    <img alt="Group Pic" src="pictures/Group-Generic-Photo.jpg" style="height: 33%; width: 33%">
+                    <h3>Other People's Group</h3>
+                  </div>
+                  
+                  <div class="row">
+                    <table class="table table-user-information">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                            <h4>Name 1</h4>
+                          </td>
+                          <td>
+                            <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                            <h4>Name 2</h4>
+                          </td>
+                          <td>
+                            <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                            <h4>Name 3</h4>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                            <h4>Name 4</h4>
+                          </td>
+                          <td>
+                            <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                            <h4>Name 5</h4>
+                          </td>
+                          <td>
+                            <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                            <h4>Name 6</h4>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Group Name:</td>
+                          <td colspan="2">Blank</td>
+                        </tr>
+                        <tr>
+                          <td>Group Games:</td>
+                          <td colspan="2">DnD, Dungeon World, Pathfinder</td>
+                        </tr>
+                        <tr>
+                          <td>Meeting Times:</td>
+                          <td colspan="2">Monday at 5:00 PM, Friday at 7:00 PM</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="viewOtherGroup.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-info"><i class="glyphicon glyphicon-user"></i> View Full Profile</a>
+            <a href="#" onclick="$('#myModal').modal('hide')" class="btn btn-sm btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i>Close</a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Right Sidebar -->
