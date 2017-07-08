@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	$username = "";
 	$email = "";
 	$first_name = "";
@@ -52,7 +54,139 @@
 		if (count($errors) == 0) {
 			//hash the password to store the hashed value
 			$password = hash('sha256', $password_1);
-			$sql = "INSERT INTO User (UserName, Email, Password, FirstName, LastName, Address, City, State, Zip, Country) VALUES ('$username', '$email', '$password', '$first_name', '$last_name', '$address', '$city', '$state', '$zip', '$country')";
+			$sql = "INSERT INTO User (Username, Email, Password, FirstName, LastName, Address, City, State, Zip, Country) VALUES ('$username', '$email', '$password', '$first_name', '$last_name', '$address', '$city', '$state', '$zip', '$country')";
 			mysqli_query($db, $sql);
+			$_SESSION['username'] = $username;
+			$_Session['success'] = "Welcome back!";
+			header('location: home.php'); //Take to home page after login
 		}
 	}
+
+	//login from login.php
+	if (isset($_POST['login'])) {
+		$username = mysqli_real_escape_string($db, $_POST['username']);
+		$password = mysqli_real_escape_string($db, $_POST['password']);
+		
+
+		//validate all fields
+		if (empty($username)) {
+			array_push($errors, "Username is required");
+		}
+		if (empty($password)) {
+			array_push($errors, "Passoword is required");
+		}
+		if (count($errors) == 0 ) {
+			$password = hash('sha256', $password); //encrypt password before comparing with that from database
+			$query = "SELECT * FROM User WHERE Username='$username' AND Password = '$password'";
+			$result = mysqli_query($db, $query);
+			if (mysqli_num_rows($result) == 1) {
+				//log user in
+				$_SESSION['username'] = $username;
+				$_Session['success'] = "Welcome back!";
+				header('location: home.php'); //Take to home page after login
+			}
+			else {
+				array_push($errors, "Incorrect Username and/or Password");
+			}
+		}
+	}
+
+	//logging out
+	if (isset($_GET['logout'])) {
+		session_destroy();
+		unset($_SESSION['username']);
+		header('location: login.php');
+	}
+
+	function loadplayer()
+    {
+
+        //Connect to the database
+        $db = mysqli_connect('localhost', 'root', 'P@55w0rd', 'rollforgroup') or die($db);
+
+        $sql = "SELECT Username FROM user";
+
+        $name = $db->query($sql);
+
+        if ($name->num_rows > 0){
+            //output of each db row
+
+            echo '<tr>';
+            $count = 0;
+
+            while ($row = $name->fetch_assoc()){
+
+
+                echo '<td> <a data-toggle="modal" href="viewOtherPlayer.php?username=' . $row['Username'] . '"> 
+                    <img src="pictures/Male-Generic-Photo.jpg" alt="IMG" class="playerIcon"/><br/>
+                     <h4>' . $row['Username'] . '</h4></a></td>';
+
+                     $count = $count + 1;
+
+                     if ($count == 4){
+                         $count = 0;
+                         echo '</tr> <tr>';
+                     }
+
+            }
+        }
+    }
+
+    function loadProfile()
+    {
+
+        //Connect to the database
+        $db = mysqli_connect('localhost', 'root', 'P@55w0rd', 'rollforgroup') or die($db);
+        $username = $_SESSION['username'];
+        $query = "SELECT * FROM user WHERE Username='$username'";
+        $userquery = mysqli_query($db, $query);
+
+        if (mysqli_num_rows($userquery) !=1){
+        	die ("that username could not be found!");
+        }
+
+        while($row = mysqli_fetch_array($userquery, MYSQLI_ASSOC)){
+        	$firstname = $row['FirstName'];
+        	$lastname = $row['LastName'];
+        	$email = $row['Email'];
+        	$address = $row['Address'];
+        	$city = $row['City'];
+        	$state = $row['State'];
+        	$zip = $row['Zip'];
+        	$country = $row['Country'];
+        }
+       	echo '   <tr>
+                    <td>First Name:</td>
+                    <td>'.$firstname.'</td>
+                  </tr>
+                  <tr>
+                    <td>Last Name:</td>
+                    <td>'.$lastname.'</td>
+                  </tr>
+                  <tr>
+                    <td>Email:</td>
+                    <td>'.$email.'</td>
+                  </tr>
+                  <tr>
+                    <td>Address:</td>
+                    <td>'.$address.'</td>
+                  </tr>
+                   <tr>
+                    <td>City:</td>
+                    <td>'.$city.'</td>
+                  </tr>
+                  <tr>
+                    <td>State/Province:</td>
+                    <td>'.$state.'</td>
+                  </tr>
+                   <tr>
+                    <td>Postal Code:</td>
+                    <td>'.$zip.'</td>
+                  </tr>
+                  <tr>
+                    <td>Country:</td>
+                    <td>'.$country.'</td>
+                  </tr>';
+    }
+
+?>

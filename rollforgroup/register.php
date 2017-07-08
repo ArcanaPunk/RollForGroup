@@ -92,14 +92,14 @@
       <ul class="nav navbar-nav">
         <li><a href="players.php">Players</a></li>
         <li><a href="group.php">Groups</a></li>
-        <li><a href="viewMessages.html">Messages</a></li>
-        <li><a href="viewAbout.html">About</a></li>
+        <li><a href="viewMessages.php">Messages</a></li>
+        <li><a href="viewAbout.php">About</a></li>
       </ul>
 
       <!-- My Profile and My Group Button and Login -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-        <li><a href="viewOwnGroups.html"><span class="glyphicon glyphicon-th-large"></span> My Groups</a></li>
+        <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        <li><a href="viewOwnGroups.php"><span class="glyphicon glyphicon-th-large"></span> My Groups</a></li>
         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
     </div>
@@ -122,10 +122,10 @@
             <?php include('errors.php'); ?>
             <p>
               <label>Username:</label>
-              <input type="text" name="username"/><br/>
+              <input type="text" name="username" value="<?php echo $username; ?>"/><br/>
 
               <label>Email:</label>
-              <input type="text" name="email"/><br/>
+              <input type="text" name="email" value="<?php echo $email; ?>"/><br/>
 
               <label>Password:</label>
               <input type="password" name="password_1"/><br/>
@@ -134,10 +134,10 @@
               <input type="password" name="password_2"/><br/>
 
               <label>First Name:</label>
-              <input type="text" name="first_name"/><br/>
+              <input type="text" name="first_name" value="<?php echo $first_name; ?>"/><br/>
 
               <label>Last Name:</label>
-              <input type="text" name="last_name"/><br/>
+              <input type="text" name="last_name" value="<?php echo $last_name; ?>"/><br/>
 
               <label>Address:</label>
               <input type="text" name="address"><br/>

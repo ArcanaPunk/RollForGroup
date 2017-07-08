@@ -1,3 +1,4 @@
+<?php include('server.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,15 +92,19 @@
       <ul class="nav navbar-nav">
         <li><a href="players.php">Players</a></li>
         <li><a href="group.php">Groups</a></li>
-        <li><a href="viewMessages.html">Messages</a></li>
-        <li><a href="viewAbout.html">About</a></li>
+        <li><a href="viewMessages.php">Messages</a></li>
+        <li><a href="viewAbout.php">About</a></li>
       </ul>
 
       <!-- My Profile and My Group Button and Login -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-        <li><a href="viewOwnGroups.html"><span class="glyphicon glyphicon-th-large"></span> My Groups</a></li>
-        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        <li><a href="viewOwnGroups.php"><span class="glyphicon glyphicon-th-large"></span> My Groups</a></li>
+        <?php if(isset($_SESSION['username'])): ?>
+          <li><a href="home.php?logout='1'"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <?php else: ?>
+          <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <?php endif; ?>
       </ul>
     </div>
 
@@ -114,16 +119,17 @@
     </div>
 
     <div class="col-sm-8 text-left"> 
-      <form>
+      <form method="post" action="login.php">
         <fieldset>
           <legend>Login</legend>
-
+          <!-- display validation for form fields -->
+          <?php include('errors.php'); ?>
           <p>
             <label>Username:</label>
-            <input type="text" name="user_name"/><br/>
+            <input type="text" name="username"/><br/>
             <label>Password:</label>
-            <input type="password" name="pass_word"/><br/><br/>
-            <input type="submit" value="Submit"/>
+            <input type="password" name="password"/><br/><br/>
+            <button type="submit" name="login" class="btn">Login</button>
           </p>
 
         </fieldset>
@@ -141,12 +147,7 @@
       </fieldset>
     </div>
     <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
+     
     </div>
   </div>
 </div>

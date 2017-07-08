@@ -1,3 +1,10 @@
+<?php include('server.php'); 
+
+  //Only users that are logged in can view this page
+  if (empty($_SESSION['username'])) {
+    header('location: login.php');
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,15 +98,19 @@
       <ul class="nav navbar-nav">
         <li><a href="players.php">Players</a></li>
         <li><a href="group.php">Groups</a></li>
-        <li><a href="viewMessages.html">Messages</a></li>
-        <li><a href="viewAbout.html">About</a></li>
+        <li><a href="viewMessages.php">Messages</a></li>
+        <li><a href="viewAbout.php">About</a></li>
       </ul>
 
       <!-- My Profile and My Group Button and Login -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="profile.html"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
-        <li><a href="viewOwnGroups.html"><span class="glyphicon glyphicon-th-large"></span> My Groups</a></li>
-        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="profile.php"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+        <li><a href="viewOwnGroups.php"><span class="glyphicon glyphicon-th-large"></span> My Groups</a></li>
+        <?php if(isset($_SESSION['username'])): ?>
+          <li><a href="home.php?logout='1'"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <?php else: ?>
+          <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <?php endif; ?>
       </ul>
     </div>
 
@@ -114,6 +125,24 @@
     </div>
 
     <div class="col-sm-8 text-left"> 
+      <div>
+      <?php if (isset($_SESSION['success'])): ?>
+
+        <div class="error success">
+          <h3>
+            <?php
+              echo $_SESSION['success'];
+              unset($_SESSION['success']);
+            ?>
+          </h3>
+        </div>
+      <?php endif ?>
+
+      <?php if (isset($_SESSION["username"])): ?>
+        <p>Welcome back <strong><?php echo $_SESSION['username']; ?></strong></p>
+      <?php endif ?>
+    </div>
+
       <h1>Welcome</h1>
       <p>Roll For Party is a tabletop matchmaker. Whether you are a veteran player or someone who is looking for their first adventure we've got your back! <br/><br/>
 
@@ -124,12 +153,7 @@
       <p>This is a test home page! Please look forward to the full release.</p>
     </div>
     <div class="col-sm-2 sidenav">
-      <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
-      </div>
+    
     </div>
   </div>
 </div>
